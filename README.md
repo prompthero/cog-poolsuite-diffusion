@@ -1,6 +1,6 @@
-# Midjourney Diffusion for Replicate API
+# Poolsuite Diffusion for Replicate API
 
-Model: [Midjourney Diffusion](https://huggingface.co/prompthero/midjourney-v4-diffusion) 
+Model: [Poolsuite Diffusion](https://huggingface.co/prompthero/poolsuite-diffusion) 
 
 Author: [@prompthero](prompthero.com)
 
