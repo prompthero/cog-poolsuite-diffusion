@@ -6,7 +6,7 @@ from diffusers import StableDiffusionPipeline, DDIMScheduler
 from pytorch_lightning import seed_everything
 from cog import BasePredictor, Input, Path
 
-DREAMBOOTH_MODEL_PATH="poolsuite-diffusion"
+DREAMBOOTH_MODEL_PATH="weights/poolsuite-diffusion"
 
 class Predictor(BasePredictor):
     def setup(self):

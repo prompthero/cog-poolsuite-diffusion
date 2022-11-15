@@ -12,6 +12,3 @@ build:
   run:
    - pip install -qq git+https://github.com/ShivamShrirao/diffusers
 predict: "predict.py:Predictor"
-image: "r8.im/prompthero/poolsuite-diffusion" 
-
-
