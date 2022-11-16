@@ -17,6 +17,6 @@ $ git clone https://huggingface.co/prompthero/poolsuite-diffusion
 ### Publish your model
 ````
 $ cog login
-$ cog push r8.im/yourUser/yourModelName   
+$ cog push r8.im/prompthero/poolsuite-diffusion 
 ````
 
