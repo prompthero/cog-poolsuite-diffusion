@@ -19,4 +19,4 @@ $ git clone https://huggingface.co/prompthero/poolsuite-diffusion
 $ cog login
 $ cog push r8.im/prompthero/poolsuite-diffusion 
 ````
-
+ 
