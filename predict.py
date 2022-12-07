@@ -1,21 +1,17 @@
 import os
+import shutil
 from typing import List
 import torch
-from diffusers import (
-    StableDiffusionPipeline,
-    EulerAncestralDiscreteScheduler
-)
-from PIL import Image
+from diffusers import StableDiffusionPipeline, DDIMScheduler
 from pytorch_lightning import seed_everything
 from cog import BasePredictor, Input, Path
 
-DREAMBOOTH_MODEL_PATH="weights/lookbook"
+DREAMBOOTH_MODEL_PATH="weights/poolsuite-diffusion"
 
 class Predictor(BasePredictor):
     def setup(self):
         """Load the model into memory to make running multiple predictions efficient"""
-        print("Loading pipeline...")
-        scheduler = EulerAncestralDiscreteScheduler(
+        scheduler = DDIMScheduler(
             beta_start=0.00085,
             beta_end=0.012,
             beta_schedule="scaled_linear",
@@ -35,26 +31,26 @@ class Predictor(BasePredictor):
         self,
         prompt: str = Input(
             description="Input prompt",
-            default="a close up of a person wearing a brown shirt",
+            default="photography of an Italian car in Tuscany, poolsuite style",
         ),
         width: int = Input(
-            description="1:1 = 512x512 and 4:5 = 512x640",
-            choices=[512],
+            description="Width of output image. Maximum size is 1024x768 or 768x1024 because of memory limits",
+            choices=[128, 256, 512, 768, 1024],
             default=512,
         ),
         height: int = Input(
-            description="1:1 = 512x512 and 4:5 = 512x640",
-            choices=[512, 640],
+            description="Height of output image. Maximum size is 1024x768 or 768x1024 because of memory limits",
+            choices=[128, 256, 512, 768, 1024],
             default=512,
         ),
         num_outputs: int = Input(
             description="Number of images to output", choices=[1, 4], default=1
         ),
         num_inference_steps: int = Input(
-            description="Number of denoising steps. Works best with 150", ge=1, le=500, default=150
+            description="Number of denoising steps", ge=1, le=500, default=50
         ),
         guidance_scale: float = Input(
-            description="7-9 are the best ones", ge=1, le=20, default=7
+            description="Scale for classifier-free guidance", ge=1, le=20, default=6
         ),
         seed: int = Input(
             description="Random seed. Leave blank to randomize the seed", default=None
